@@ -125,20 +125,12 @@
 		FA55FFB42B77A38200A95611 /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				FA55FFB52B77A38C00A95611 /* DataMapping */,
 				FA55FFB62B77A3AC00A95611 /* APIEndpoints.swift */,
 				FA55FFB82B77A4B400A95611 /* APIFetchWeatherUseCase.swift */,
 				FA55FFC32B77B3F100A95611 /* APIResponseParser.swift */,
 				FA55FFBA2B77A4C100A95611 /* APISearchCityUseCase.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		FA55FFB52B77A38C00A95611 /* DataMapping */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DataMapping;
 			sourceTree = "<group>";
 		};
 		FA55FFBC2B77B1AE00A95611 /* Errors */ = {

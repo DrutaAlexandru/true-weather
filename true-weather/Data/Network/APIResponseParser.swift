@@ -7,6 +7,9 @@
 
 import Foundation
 
+/// API Response parser checks the response recevied from the request,
+/// if the staus code is `400` then something went wrong and the error is thrown.
+///
 struct APIResponseParser {
     func parse(_ response: URLResponse, with data: Data) throws {
         if let httpResponse = response as? HTTPURLResponse {
@@ -35,6 +38,8 @@ struct APIResponseParser {
         }
     }
 }
+
+// MARK: - Error JSON Response object
 
 private struct APIError: Codable {
     let error: Bool

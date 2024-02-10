@@ -35,6 +35,8 @@ final class APISearchCityUseCase: SearchCityUseCase {
     }
 }
 
+// MARK: - Response Mapper to transform the JSON Response Object to [City] object
+
 private struct APISearchCityResponseMapper {
     let data: Data
     var jsonDecoder: JSONDecoder = JSONDecoder()
@@ -54,6 +56,8 @@ private struct APISearchCityResponseMapper {
         }
     }
 }
+
+// MARK: - JSON Response Object Decodable objects
 
 private struct APISearchCityResponse: Decodable {
     let results: [APICity]

@@ -7,7 +7,8 @@
 
 import Foundation
 
-/// https://open-meteo.com/en/docs/
+/// Source: https://open-meteo.com/en/docs/
+///
 /// Weather variable documentation
 /// WMO Weather interpretation codes (WW)
 /// |  Code          |  Description

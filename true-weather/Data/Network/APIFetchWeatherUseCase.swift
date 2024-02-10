@@ -37,6 +37,8 @@ final class APIFetchWeatherUseCase: FetchWeatherUseCase {
     }
 }
 
+// MARK: - Response Mapper to transform the JSON Response Object to Weather object
+
 private struct APIFetchWeatherResponseMapper {
     let data: Data
     var jsonDecoder: JSONDecoder = JSONDecoder()
@@ -91,6 +93,8 @@ private struct APIFetchWeatherResponseMapper {
         }
     }
 }
+
+// MARK: - JSON Response Object Decodable objects
 
 private struct APIWeather: Decodable {
     let latitude: Double
