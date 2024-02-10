@@ -8,9 +8,6 @@
 import Foundation
 
 final class APISearchCityUseCase: SearchCityUseCase {
-    
-    public static let shared = APISearchCityUseCase()
-    
     func fetchResults(with query: String) async throws -> [City] {
         guard var url = URL(string: APIEndpoints.autocomplete.rawValue) else { throw NetworkError.invalidRequest }
         url.append(queryItems: [

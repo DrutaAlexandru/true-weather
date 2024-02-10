@@ -8,11 +8,6 @@
 import Foundation
 
 final class APIFetchWeatherUseCase: FetchWeatherUseCase {
-    
-    public static let shared = APIFetchWeatherUseCase()
-    
-    private init() { }
-    
     func getWeather(for coordinates: Coordinates) async throws -> Weather {
         guard var url = URL(string: APIEndpoints.weather.rawValue) else { throw NetworkError.invalidRequest }
         url.append(queryItems: [
