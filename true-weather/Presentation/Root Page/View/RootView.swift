@@ -15,21 +15,29 @@ struct RootView: View {
     @StateObject var citiesViewModel: CitiesListViewModel = .init()
     @StateObject var weatherViewModel: WeatherViewModel = .init()
     
+    @StateObject var networkManager = NetworkConnectionManager()
+    
     @State private var showCitiesList: Bool = false
     @State private var selectedCity: City? = nil
     
     var body: some View {
         ZStack {
-            if rootViewModel.checkForCachedDataAvailable() {
-                weatherPageView
+            if networkManager.isConnected {
+                if rootViewModel.checkForCachedDataAvailable() {
+                    weatherPageView
+                } else {
+                    homeView
+                }
             } else {
-                homeView
+                noInternetConnectionView
             }
         }.onAppear {
             selectedCity = UserDefaultsManager.shared.getSelectedCity()
             if let city = selectedCity {
                 weatherViewModel.setCity(city: city)
             }
+        }.onReceive(networkManager.$isConnected) { isConnected in
+            
         }
     }
     
@@ -63,6 +71,10 @@ struct RootView: View {
                 selectedCity = city
                 weatherViewModel.setCity(city: city)
             })
+    }
+    
+    private var noInternetConnectionView: some View {
+        NoInternetView()
     }
 }
 
