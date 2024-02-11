@@ -20,6 +20,7 @@ class WeatherViewModel: ObservableObject {
     var isDataDownloaded: Bool
     
     var showErrorPublisher = PassthroughSubject<String, Never>()
+    var showCitiesListPublisher = PassthroughSubject<Void, Never>()
     
     init(city: City) {
         isLoading = false
@@ -69,5 +70,9 @@ class WeatherViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    func showCitiesList() {
+        showCitiesListPublisher.send()
     }
 }

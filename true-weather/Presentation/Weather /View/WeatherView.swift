@@ -47,16 +47,26 @@ struct WeatherView: View {
     
     private var menuButtons: some View {
         HStack(spacing: 20) {
+            if let weatherData = viewModel.weatherData {
+                let imageRendererr = ImageRenderer(
+                    content: WeatherHeadingSection(city: viewModel.city, weather: weatherData)
+                                .padding()
+                                .frame(width: 500, height: 500)
+                )
+                if let uiImage = imageRendererr.uiImage {
+                    ShareLink(
+                        item: Image(uiImage: uiImage),
+                        preview: SharePreview("True Weather", image: Image(uiImage: uiImage)),
+                        label:  {
+                            Image(systemName: "square.and.arrow.up")
+                                .fontWeight(.bold)
+                                .foregroundStyle(Color.secondary)
+                        }
+                    )
+                }
+            }
             Button(action: {
-                
-            }, label: {
-                Image(systemName: "square.and.arrow.up")
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.secondary)
-            })
-            
-            Button(action: {
-                
+                viewModel.showCitiesList()
             }, label: {
                 Image(systemName: "list.bullet")
                     .fontWeight(.bold)
