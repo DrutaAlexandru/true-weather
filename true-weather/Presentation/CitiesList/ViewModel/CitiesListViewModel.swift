@@ -20,6 +20,7 @@ class CitiesListViewModel: ObservableObject {
             if searchText.isEmpty {
                 cachedCitiesList = cities
                 UserDefaultsManager.shared.setCitiesList(cachedCitiesList)
+                if cachedCitiesList.isEmpty { UserDefaultsManager.shared.setSelectedCity(nil) }
             }
         }
     }
@@ -57,6 +58,7 @@ class CitiesListViewModel: ObservableObject {
     func selectCity(_ city: City) {
         selectedCity = city
         didSelectCityPublisher.send(city)
+        searchText = ""
         UserDefaultsManager.shared.setSelectedCity(city)
         if !cachedCitiesList.contains(city) {
             cachedCitiesList.append(city)

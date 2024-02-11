@@ -56,7 +56,7 @@ struct WeatherView: View {
                 if let uiImage = imageRendererr.uiImage {
                     ShareLink(
                         item: Image(uiImage: uiImage),
-                        preview: SharePreview("True Weather", image: Image(uiImage: uiImage)),
+                        preview: SharePreview("Weather", image: Image(uiImage: uiImage)),
                         label:  {
                             Image(systemName: "square.and.arrow.up")
                                 .fontWeight(.bold)

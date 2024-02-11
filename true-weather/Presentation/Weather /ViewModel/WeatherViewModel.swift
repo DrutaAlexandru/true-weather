@@ -11,10 +11,8 @@ import SwiftUI
 
 class WeatherViewModel: ObservableObject {
     
-    var city: City
-    
+    @Published var city: City
     @Published var isLoading: Bool
-    
     @Published var weatherData: Weather?
     
     var isDataDownloaded: Bool
@@ -27,6 +25,18 @@ class WeatherViewModel: ObservableObject {
         isDataDownloaded = false
         weatherData = nil
         self.city = city
+    }
+    
+    init() {
+        isLoading = false
+        isDataDownloaded = false
+        weatherData = nil
+        self.city = .init(id: 0, name: "", country: "", latitude: 0, longitude: 0)
+    }
+    
+    func setCity(city: City) {
+        self.city = city
+        loadData(force: true)
     }
     
     func loadData(force: Bool = false) {
