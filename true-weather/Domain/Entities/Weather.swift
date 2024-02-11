@@ -18,6 +18,83 @@ struct Weather {
     }
 }
 
+#if DEBUG
+extension Weather {
+    static let mock = Weather(
+        latitude: 47.00556,
+        longitude: 28.8575,
+        current: CurrentWeather(
+            temperatureValue: 7.7,
+            temperatureUnit: "°C",
+            apparentTemperatureValue: 6,
+            apparentTemperatureUnit: "°C",
+            relativeHumidityValue: 80,
+            relativeHumidityUnit: "%",
+            precipitationValue: 0,
+            precipitationUnit: "mm",
+            rainValue: 0,
+            rainUnit: "mm",
+            showersValue: 0,
+            showersUnit: "mm",
+            snowfallValue: 0,
+            snowfallUnit: "cm",
+            weatherCode: 0,
+            cloudCoverValue: 93,
+            cloudCoverUnit: "%",
+            windSpeedValue: 2.4,
+            windSpeedUnit: "km/h",
+            windDirectionValue: 117,
+            windDirectionUnit: "°",
+            isDay: true
+        ),
+        forecast: [
+            DailyWeather(time: "2024-02-11",
+                         temperatureMinValue: 6.9,
+                         temperatureMaxValue: 13.8,
+                         temperatureMinUnit: "°C",
+                         temperatureMaxUnit: "°C",
+                         weatherCode: 61),
+            DailyWeather(time: "2024-02-12",
+                         temperatureMinValue: 6.4,
+                         temperatureMaxValue: 16.9,
+                         temperatureMinUnit: "°C",
+                         temperatureMaxUnit: "°C",
+                         weatherCode: 3),
+            DailyWeather(time: "2024-02-13",
+                         temperatureMinValue: 8,
+                         temperatureMaxValue: 14,
+                         temperatureMinUnit: "°C",
+                         temperatureMaxUnit: "°C",
+                         weatherCode: 3),
+            DailyWeather(time: "2024-02-14",
+                         temperatureMinValue: 7.5,
+                         temperatureMaxValue: 13.2,
+                         temperatureMinUnit: "°C",
+                         temperatureMaxUnit: "°C",
+                         weatherCode: 95),
+            DailyWeather(time: "2024-02-15",
+                         temperatureMinValue: 3,
+                         temperatureMaxValue: 8.7,
+                         temperatureMinUnit: "°C",
+                         temperatureMaxUnit: "°C",
+                         weatherCode: 3),
+            DailyWeather(time: "2024-02-16",
+                         temperatureMinValue: 0.5,
+                         temperatureMaxValue: 7.6,
+                         temperatureMinUnit: "°C",
+                         temperatureMaxUnit: "°C",
+                         weatherCode: 3),
+            DailyWeather(time: "2024-02-17",
+                         temperatureMinValue: 1.2,
+                         temperatureMaxValue: 7.3,
+                         temperatureMinUnit: "°C",
+                         temperatureMaxUnit: "°C",
+                         weatherCode: 3),
+        ]
+    )
+}
+#endif
+
 struct CurrentWeather {
     private let temperatureValue: Double
     private let temperatureUnit: String
@@ -28,16 +105,16 @@ struct CurrentWeather {
     private let relativeHumidityValue: Double
     private let relativeHumidityUnit: String
     
-    private let precipitationValue: Int
+    private let precipitationValue: Double
     private let precipitationUnit: String
     
-    private let rainValue: Int
+    private let rainValue: Double
     private let rainUnit: String
     
-    private let showersValue: Int
+    private let showersValue: Double
     private let showersUnit: String
     
-    private let snowfallValue: Int
+    private let snowfallValue: Double
     private let snowfallUnit: String
     
     private let weatherCode: Int
@@ -59,13 +136,13 @@ struct CurrentWeather {
          apparentTemperatureUnit: String,
          relativeHumidityValue: Double,
          relativeHumidityUnit: String,
-         precipitationValue: Int,
+         precipitationValue: Double,
          precipitationUnit: String,
-         rainValue: Int,
+         rainValue: Double,
          rainUnit: String,
-         showersValue: Int,
+         showersValue: Double,
          showersUnit: String,
-         snowfallValue: Int,
+         snowfallValue: Double,
          snowfallUnit: String,
          weatherCode: Int,
          cloudCoverValue: Int,
@@ -111,23 +188,39 @@ struct CurrentWeather {
     }
     
     var precipitation: String {
-        "\(precipitationValue) \(precipitationUnit)"
+        "\(String(format: "%0.1f", precipitationValue)) \(precipitationUnit)"
     }
     
     var rain: String {
-        "\(rainValue) \(rainUnit)"
+        "\(String(format: "%0.1f", rainValue)) \(rainUnit)"
     }
     
     var showers: String {
-        "\(showersValue) \(showersUnit)"
+        "\(String(format: "%0.1f", showersValue)) \(showersUnit)"
     }
     
     var snowfall: String {
-        "\(snowfallValue) \(snowfallUnit)"
+        "\(String(format: "%0.1f", snowfallValue)) \(snowfallUnit)"
     }
     
     var weatherIcon: String {
-        WeatherData(code: weatherCode).icon
+        WeatherData(code: weatherCode).icon(isDay: isDay)
+    }
+    
+    var weatherDescription: String {
+        WeatherData(code: weatherCode).description
+    }
+    
+    var weatherTrueTitle: String {
+        WeatherData(code: weatherCode).title
+    }
+    
+    var weatherTrueSubtitle: String {
+        WeatherData(code: weatherCode).subtitle
+    }
+    
+    var weatherTrueAccentColor: String {
+        WeatherData(code: weatherCode).color
     }
     
     var cloudCover: String {
@@ -149,7 +242,8 @@ struct CurrentWeather {
     }
 }
 
-struct DailyWeather {
+struct DailyWeather: Identifiable {
+    let id: UUID
     private let time: String
     private let temperatureMinValue: Double
     private let temperatureMaxValue: Double
@@ -161,7 +255,9 @@ struct DailyWeather {
          temperatureMinValue: Double,
          temperatureMaxValue: Double,
          temperatureMinUnit: String,
-         temperatureMaxUnit: String, weatherCode: Int) {
+         temperatureMaxUnit: String, 
+         weatherCode: Int) {
+        self.id = UUID()
         self.time = time
         self.temperatureMinValue = temperatureMinValue
         self.temperatureMaxValue = temperatureMaxValue
@@ -183,6 +279,6 @@ struct DailyWeather {
     }
     
     var weatherIcon: String {
-        WeatherData(code: weatherCode).icon
+        WeatherData(code: weatherCode).icon()
     }
 }

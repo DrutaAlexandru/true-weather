@@ -16,10 +16,6 @@ struct RootView: View {
             Text("Hello, world!")
         }
         .padding()
-        .onAppear {
-            let vm = WeatherViewModel(coordinates: .init(latitude: 47, longitude: 28))
-            vm.loadData()
-        }
     }
 }
 

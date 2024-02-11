@@ -8,8 +8,29 @@
 import SwiftUI
 
 struct LoadingView: View {
+    
+    @State private var dotsCount = 0
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color.clear
+            Text("Loading\n" + String(repeating: ".", count: dotsCount % 4))
+                .font(.largeTitle)
+                .multilineTextAlignment(.center)
+                .onAppear {
+                    animateDots()
+                }
+                .frame(width: 130)
+        }
+    }
+    
+    private func animateDots() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            withAnimation {
+                dotsCount += 1
+                animateDots()
+            }
+        }
     }
 }
 

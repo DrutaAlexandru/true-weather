@@ -22,3 +22,13 @@ struct City: Identifiable {
         Coordinates(latitude: latitude, longitude: longitude)
     }
 }
+
+#if DEBUG
+extension City {
+    static let mock = City(id: 618426,
+                           name: "Chisinau",
+                           country: "Moldova",
+                           latitude: 47.00556,
+                           longitude: 28.8575)
+}
+#endif

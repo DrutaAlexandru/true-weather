@@ -140,10 +140,10 @@ private struct APICurrentData: Decodable {
     let relativeHumidity: Double
     let apparentTemperature: Double
     let isDay: Int
-    let precipitation: Int
-    let rain: Int
-    let showers: Int
-    let snowfall: Int
+    let precipitation: Double
+    let rain: Double
+    let showers: Double
+    let snowfall: Double
     let weatherCode: Int
     let cloudCover: Int
     let windSpeed: Double
