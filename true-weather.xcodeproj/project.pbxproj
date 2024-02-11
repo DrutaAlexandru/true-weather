@@ -30,6 +30,7 @@
 		FA55FFE12B78296B00A95611 /* Color+HEX.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA55FFE02B78296B00A95611 /* Color+HEX.swift */; };
 		FA55FFE32B78333400A95611 /* BlurView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA55FFE22B78333400A95611 /* BlurView.swift */; };
 		FA6BDBED2B78C76B00E6A860 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6BDBEC2B78C76B00E6A860 /* LoadingView.swift */; };
+		FA6BDBEF2B78DC1E00E6A860 /* NoInternetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA6BDBEE2B78DC1E00E6A860 /* NoInternetView.swift */; };
 		FAE7B8F92B7612600031E42E /* true_weatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7B8F82B7612600031E42E /* true_weatherApp.swift */; };
 		FAE7B8FB2B7612600031E42E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAE7B8FA2B7612600031E42E /* RootView.swift */; };
 		FAE7B8FD2B7612610031E42E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FAE7B8FC2B7612610031E42E /* Assets.xcassets */; };
@@ -60,6 +61,7 @@
 		FA55FFE02B78296B00A95611 /* Color+HEX.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+HEX.swift"; sourceTree = "<group>"; };
 		FA55FFE22B78333400A95611 /* BlurView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurView.swift; sourceTree = "<group>"; };
 		FA6BDBEC2B78C76B00E6A860 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		FA6BDBEE2B78DC1E00E6A860 /* NoInternetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoInternetView.swift; sourceTree = "<group>"; };
 		FAE7B8F52B7612600031E42E /* true-weather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "true-weather.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAE7B8F82B7612600031E42E /* true_weatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = true_weatherApp.swift; sourceTree = "<group>"; };
 		FAE7B8FA2B7612600031E42E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		FA55FFD32B77F7D200A95611 /* No Internet Page */ = {
 			isa = PBXGroup;
 			children = (
+				FA6BDBEE2B78DC1E00E6A860 /* NoInternetView.swift */,
 			);
 			path = "No Internet Page";
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				FA55FFDD2B78094B00A95611 /* WeatherHeadingSection.swift in Sources */,
 				FA55FFBB2B77A4C100A95611 /* APISearchCityUseCase.swift in Sources */,
 				FA55FFC22B77B24C00A95611 /* NetworkError.swift in Sources */,
+				FA6BDBEF2B78DC1E00E6A860 /* NoInternetView.swift in Sources */,
 				FA55FFAA2B76DDCB00A95611 /* FetchWeatherUseCase.swift in Sources */,
 				FA55FFAC2B76DE1E00A95611 /* SearchCityUseCase.swift in Sources */,
 				FA55FFD72B77F81800A95611 /* CitiesListViewModel.swift in Sources */,
