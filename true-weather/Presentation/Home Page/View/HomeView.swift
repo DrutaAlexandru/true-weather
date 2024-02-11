@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import Combine
 
 struct HomeView: View {
     
     @State private var showDot = false
+    @State private var showLocationErrorAlert = false
     
     @StateObject var viewModel: HomeViewModel
     
@@ -17,8 +19,21 @@ struct HomeView: View {
         VStack(spacing: 20) {
             headingView.padding(.top, 50)
             Spacer()
-            searchForCityButton.padding(.bottom, 32)
-        }.padding(.horizontal, 20)
+            searchForCityButton
+            currentLocationButton.padding(.bottom, 32)
+        }
+        .padding(.horizontal, 20)
+        .onReceive(viewModel.showLocationErrorPublisher, perform: { _ in
+            showLocationErrorAlert.toggle()
+        })
+        .alert("Location Denied", isPresented: $showLocationErrorAlert) {
+            Button("Go to Settings", action: {
+                UIApplication.shared.openAppSettings()
+            })
+            Button("Cancel", role: .cancel, action: { })
+        } message: {
+            Text("You have denied you location permissions in settings, please go to settings and allow location permissions to continue.")
+        }
     }
     
     private var headingView: some View {
@@ -41,6 +56,22 @@ struct HomeView: View {
                 .clipShape(Capsule())
                 .overlay {
                     Text("Search city").fontWeight(.medium).foregroundStyle(Color.primary)
+                }
+        }
+    }
+    
+    private var currentLocationButton: some View {
+        Button {
+            viewModel.requestLocationPermission()
+        } label: {
+            BlurView(style: .systemThickMaterial)
+                .frame(height: 50)
+                .clipShape(Capsule())
+                .overlay {
+                    HStack {
+                        Text("Current Location").fontWeight(.medium).foregroundStyle(Color.primary)
+                        Image(systemName: "location.fill").foregroundStyle(Color.primary)
+                    }
                 }
         }
     }

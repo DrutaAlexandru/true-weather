@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct City: Identifiable, Equatable {
+struct City: Identifiable {
     let id: Int
     let name: String
     let country: String
-    let latitude: Double
-    let longitude: Double
+    var latitude: Double
+    var longitude: Double
     
     var detailedName: String {
         name + ", " + country
@@ -21,6 +21,20 @@ struct City: Identifiable, Equatable {
     var coordinates: Coordinates {
         Coordinates(latitude: latitude, longitude: longitude)
     }
+}
+
+extension City: Equatable {
+    static func == (lhs: City, rhs: City) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
+extension City {
+    static let currentLocation = City(id: 0,
+                                      name: "Current Location",
+                                      country: "",
+                                      latitude: 0,
+                                      longitude: 0)
 }
 
 #if DEBUG

@@ -18,7 +18,7 @@ class CitiesListViewModel: ObservableObject {
     @Published var cities: [City] {
         didSet {
             if searchText.isEmpty {
-                cachedCitiesList = cities
+                cachedCitiesList = cities.filter({ $0.id != 0 })
                 UserDefaultsManager.shared.setCitiesList(cachedCitiesList)
                 if cachedCitiesList.isEmpty { UserDefaultsManager.shared.setSelectedCity(nil) }
             }
@@ -28,13 +28,21 @@ class CitiesListViewModel: ObservableObject {
     @Published var searchText: String {
         didSet {
             if searchText.isEmpty {
-                cities = cachedCitiesList
+                cities = visibleCachedCitiesList
             }
         }
     }
     
     var trimmedSearchText: String {
         searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    var visibleCachedCitiesList: [City] {
+        if LocationManager.shared.checkPermissionStatus() == .allowed {
+            [City.currentLocation] + cachedCitiesList.filter({ $0.id != 0 })
+        } else {
+            cachedCitiesList.filter({ $0.id != 0 })
+        }
     }
     
     var didSelectCityPublisher = PassthroughSubject<City, Never>()
@@ -51,8 +59,8 @@ class CitiesListViewModel: ObservableObject {
     
     func parseSavedCities() {
         cachedCitiesList = UserDefaultsManager.shared.getCitiesList()
-        cities = UserDefaultsManager.shared.getCitiesList()
-        selectedCity = UserDefaultsManager.shared.getSelectedCity()
+        cities = visibleCachedCitiesList
+        selectedCity = UserDefaultsManager.shared.getSelectedCity() ?? City.currentLocation
     }
     
     func selectCity(_ city: City) {

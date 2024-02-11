@@ -23,7 +23,7 @@ struct RootView: View {
     var body: some View {
         ZStack {
             if networkManager.isConnected {
-                if rootViewModel.checkForCachedDataAvailable() {
+                if rootViewModel.checkForCachedDataAvailable() || rootViewModel.checkForLocationAvailability() {
                     weatherPageView
                 } else {
                     homeView
@@ -31,19 +31,18 @@ struct RootView: View {
             } else {
                 noInternetConnectionView
             }
-        }.onAppear {
+        }
+        .onAppear {
             selectedCity = UserDefaultsManager.shared.getSelectedCity()
             if let city = selectedCity {
                 weatherViewModel.setCity(city: city)
             }
-        }.onReceive(networkManager.$isConnected) { isConnected in
-            
         }
     }
     
-//    private var loadingView: some View {
-//        LoadingView()
-//    }
+    private var loadingView: some View {
+        LoadingView()
+    }
     
     private var homeView: some View {
         HomeView(viewModel: homeViewModel)
@@ -52,6 +51,9 @@ struct RootView: View {
             })
             .sheet(isPresented: $showCitiesList, content: {
                 citiesListView
+            })
+            .onReceive(homeViewModel.continueWithCurrentLocationPublisher, perform: { _ in
+                weatherViewModel.setCity(city: City.currentLocation)
             })
     }
     

@@ -75,6 +75,9 @@ struct CitiesListView: View {
             .navigationBarTitleDisplayMode(.large)
             .searchable(text: $viewModel.searchText)
         }
+        .onAppear {
+            viewModel.parseSavedCities()
+        }
     }
 }
 

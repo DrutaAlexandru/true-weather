@@ -47,7 +47,18 @@ class WeatherViewModel: ObservableObject {
                     self?.isLoading = true
                 }
                 
-                let data = try await APIFetchWeatherUseCase().getWeather(for: city.coordinates)
+                let data: Weather
+                if city.id == 0 {
+                    let location = try await LocationManager.shared.getCurrentLocation()
+                    DispatchQueue.main.async { [weak self] in
+                        self?.city.latitude = location.coordinate.latitude
+                        self?.city.longitude = location.coordinate.longitude
+                    }
+                    data = try await APIFetchWeatherUseCase().getWeather(for: Coordinates(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude))
+                } else {
+                    data = try await APIFetchWeatherUseCase().getWeather(for: city.coordinates)
+                }
+                
                 print(data)
                 
                 DispatchQueue.main.async { [weak self] in
@@ -76,6 +87,9 @@ class WeatherViewModel: ObservableObject {
                         case .error(let string):
                             self?.showErrorPublisher.send(string)
                         }
+                    }
+                    if error is LocationUnavaliable {
+                        self?.showErrorPublisher.send("Could not detect your location, please try again")
                     }
                 }
             }

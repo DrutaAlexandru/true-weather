@@ -14,11 +14,15 @@ struct CityRow: View {
     var body: some View {
         BlurView(style: .systemUltraThinMaterial)
             .clipShape(RoundedRectangle(cornerRadius: 20))
-            .frame(height: 90)
+            .frame(height: 100)
             .overlay(alignment: .topLeading) {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: 0) {
+                    Spacer()
                     Text(city.name).font(.system(size: 26)).fontWeight(.semibold)
-                    Text(city.country)
+                    if !city.country.isEmpty {
+                        Text(city.country)
+                    }
+                    Spacer()
                 }
                 .padding(.vertical)
                 .padding(.horizontal, 24)
